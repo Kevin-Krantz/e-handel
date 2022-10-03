@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import ProductList from "./components/ProductList";
+import { getFoods } from "./services/fakeFoodService";
+import { IProduct } from "./types/Product";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(): JSX.Element {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    setProducts(getFoods());
+  }, []);
+
+  return <ProductList products={products} />;
 }
 
 export default App;
